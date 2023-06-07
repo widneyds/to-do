@@ -1,8 +1,9 @@
 const formAddTodo = document.querySelector('.form-add-todo');
-const formSearchTodo = document.querySelector('.form-search input')
+const formSearchTodo = document.querySelector('.form-search input');
 const todosContainer = document.querySelector('.todos-container');
 
-formAddTodo.addEventListener('submit', event => {
+
+const insertTodo = event => {
     event.preventDefault();
 
     const inputValue = event.target.add.value.trim();
@@ -16,24 +17,37 @@ formAddTodo.addEventListener('submit', event => {
 
         event.target.reset();
     }
-})
+};
 
-todosContainer.addEventListener('click', event => {
+const removeTodo = event => {
     if (Array.from(event.target.classList).includes('delete')) {
-        event.target.parentElement.remove();
-    }
-})
+        event.target.parentElement.dataset.name = 'todo';
+        const todo = document.querySelector('li[data-name="todo"]');
+        todo.remove();
+    };
+};
 
-formSearchTodo.addEventListener('input', event => {
+const showValidTodos = (inputValue, array) => {
+    array
+        .filter(todo => todo.textContent.toLowerCase().includes(inputValue))
+        .forEach(todo => todo.classList.replace('d-none', 'd-flex'));
+} 
+
+const hideInvalidTodos = (inputValue, array) => {
+    array
+        .filter(todo => !todo.textContent.toLowerCase().includes(inputValue))
+        .forEach(todo => todo.classList.replace('d-flex', 'd-none'));
+}
+
+const handleUserSearching =  event => {
     const inputValue = event.target.value.trim().toLowerCase();
-    
-    const validValues = Array.from(todosContainer.children)
-        .filter(userTodo => 
-            userTodo.textContent.toLowerCase().includes(inputValue))
-        .forEach(value => value.classList.replace('d-none', 'd-flex'));
-    
-    const invalidValues = Array.from(todosContainer.children)
-        .filter(userTodo => 
-            !userTodo.textContent.toLowerCase().includes(inputValue))
-        .forEach(value => value.classList.replace('d-flex', 'd-none'));
-})
+    const todosContainerArray = Array.from(todosContainer.children);
+
+    showValidTodos(inputValue, todosContainerArray);
+    hideInvalidTodos(inputValue, todosContainerArray);
+}
+
+
+formAddTodo.addEventListener('submit', insertTodo);
+todosContainer.addEventListener('click', removeTodo);
+formSearchTodo.addEventListener('input', handleUserSearching);
