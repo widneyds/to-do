@@ -10,7 +10,9 @@ const insertTodo = event => {
 
     if(inputValue.length) {
         todosContainer.innerHTML += 
-        `<li class="list-group-item d-flex justify-content-between align-items-center" data-todo="${inputValue}">
+        `<li 
+        class="list-group-item list-group-item-warning d-flex justify-content-between align-items-center" 
+        data-todo="${inputValue}">
             <span>${inputValue}</span>
             <i class="far fa-trash-alt" data-trash="${inputValue}"></i>
         </li>`;

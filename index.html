@@ -1,31 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="./style.css">
-    <title>To-do List | CJRM</title>
-  </head>
-  <body class="bg-dark">
-    <div class="container">
-
-      <header class="text-center text-light my-4">
-        <h1 class="mb-4">To-do List</h1>
-        <form class="form-search">
-          <input class="form-control m-auto" type="text" name="search" placeholder="Buscar to-do" />
-        </form>
-      </header>
-
-      <ul class="todos-container list-group mx-auto text-light"></ul>
-
-      <form class="form-add-todo text-center my-4">
-        <label class="text-light">Adicionar to-do</label>
-        <input class="form-control m-auto" type="text" name="add" autofocus />
-      </form>
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" href="./style.css">
+  <title>To-do List</title>
+</head>
+<body class="bg-light">
+  <noscript>
+    <div class="container text-center">
+      <h1>Atenção!</h1>
+      <p>Este site requer o JavaScript ativado para funcionar corretamente.</p>
     </div>
+  </noscript>
 
-    <script src="./app.js"></script>
-  </body>
+  <div class="container d-flex align-items-end justify-content-center my-5">
+    <h1 class="fs-2 font-monospace">TO-DO LIST</h1>
+  </div>
+  
+  <div class="container">
+
+    <header class="text-center text-light my-4">
+      <form class="form-search">
+        <input class="form-control m-auto text-black" type="text" name="search" placeholder="Buscar to-do" />
+      </form>
+    </header>
+
+    <ul class="todos-container list-group mx-auto"></ul>
+
+    <form class="form-add-todo text-center my-4">
+      <label class="text-light">Adicionar to-do</label>
+      <input class="form-control m-auto text-black" type="text" name="add" placeholder="Adicionar to-do" autofocus />
+    </form>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
 </html>
