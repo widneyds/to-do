@@ -10,9 +10,9 @@ const insertTodo = event => {
 
     if(inputValue.length) {
         todosContainer.innerHTML += 
-        `<li class="list-group-item d-flex justify-content-between align-items-center">
+        `<li class="list-group-item d-flex justify-content-between align-items-center" data-todo="${inputValue}">
             <span>${inputValue}</span>
-            <i class="far fa-trash-alt delete"></i>
+            <i class="far fa-trash-alt" data-trash="${inputValue}"></i>
         </li>`;
 
         event.target.reset();
@@ -20,31 +20,46 @@ const insertTodo = event => {
 };
 
 const removeTodo = event => {
-    if (Array.from(event.target.classList).includes('delete')) {
-        event.target.parentElement.dataset.name = 'todo';
-        const todo = document.querySelector('li[data-name="todo"]');
+    const clickedElement = event.target;
+    const trashDataValue = clickedElement.dataset.trash;
+    const todo = document.querySelector(`li[data-todo="${trashDataValue}"]`)
+    
+    if (trashDataValue) {
         todo.remove();
-    };
+    }
 };
 
-const showValidTodos = (inputValue, array) => {
-    array
-        .filter(todo => todo.textContent.toLowerCase().includes(inputValue))
-        .forEach(todo => todo.classList.replace('d-none', 'd-flex'));
-} 
+const filterTodos = (inputValue, todos, returnMatchedTodos) => todos
+    .filter(todo => {
+        const matchedTodos = todo.textContent.toLowerCase().includes(inputValue);
+        return returnMatchedTodos ? matchedTodos : !matchedTodos;
+    });
 
-const hideInvalidTodos = (inputValue, array) => {
-    array
-        .filter(todo => !todo.textContent.toLowerCase().includes(inputValue))
-        .forEach(todo => todo.classList.replace('d-flex', 'd-none'));
+const manipulateClasses = (todos, classToAdd, classToRemove) => {
+    todos.forEach(todo => {
+        todo.classList.remove(classToRemove);
+        todo.classList.add(classToAdd);
+    });
+}
+
+const showValidTodos = (inputValue, todos) => {
+    const todosToShow = filterTodos(inputValue, todos, true);
+
+    manipulateClasses(todosToShow, 'd-flex', 'd-none');
+}
+
+const hideInvalidTodos = (inputValue, todos) => {
+    const todosToHide = filterTodos(inputValue, todos, false);
+    
+    manipulateClasses(todosToHide, 'd-none', 'd-flex');
 }
 
 const handleUserSearching =  event => {
     const inputValue = event.target.value.trim().toLowerCase();
-    const todosContainerArray = Array.from(todosContainer.children);
+    const todos = Array.from(todosContainer.children);
 
-    showValidTodos(inputValue, todosContainerArray);
-    hideInvalidTodos(inputValue, todosContainerArray);
+    showValidTodos(inputValue, todos);
+    hideInvalidTodos(inputValue, todos);
 }
 
 
